@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, g, url_for, flash
 import sqlite3
 import csv
 import os.path
+import numpy
 
 app = Flask(__name__) #Create flask object
 app.config.from_object(__name__) #add configuration information
@@ -64,7 +65,35 @@ def addComment (comment, time, pID, cID):
 
     conn.comment()
 
-
+def trending(a):
+    one = 0
+    oneCount = 0
+    two = 0
+    twoCount = 0
+    three = 0
+    threeCount = 0
+    for post in a:
+        count = 0
+        for time in post:
+            if time - time.time() <= 86400:
+                count += 1
+        if count > oneCount:
+            three = two
+            threeCount = twoCount
+            two = one
+            twoCount = oneCount 
+            one = post[0]
+            oneCount = count
+        elif count >= twoCount:
+            three = two
+            threeCount = twoCount
+            two = post[0]
+            twoCount = count
+        elif count >= threeCount:
+            three = post[0]
+            threeCount = count
+    print [one,two,three]        
+    return [one,two,three]
 
     
 
