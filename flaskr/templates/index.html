@@ -1,92 +1,48 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
-	<head>
-		<title>SoftBlog | Home</title>
-		 <meta name="viewport" content="width=device-width">
-	    <meta name="description" content="Blog project for SoftDev using Python Flask and SQLite">
-	    <meta property="og:title" content="SoftBlog | Home">
-	    <meta property="og:type" content="website">
-	    <meta property="og:description" content="Blog project for SoftDev using Python Flask and SQLite">
-
-		<!--Resources-->
-		<link rel="stylesheet" href="../static/font-awesome-4.2.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="../static/main.css">
-		<link rel="stylesheet" href="../static/button-style.css">
-		<link rel="icon" type="image/ico" href="../static/favicon.ico">
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
-		<script type="text/javascript" src="../static/jquery-1.11.1.min.js"></script>
-
-	</head>
-
-	<body>
-
-		<div class="header">
-			<h1 class="heading">
-				SoftBlog : Home
-			</h1>
-			<div class="links">
-				<a style="color: white" class="greylink" href="#">
-					ABOUT
-				</a>
-			</div>
-		</div>
+{% block title %}
+	{{ location }} | SoftBlog
+{% endblock %}
 
 
-		<div id="create-new" class="card">
-			<div class="create-new-heading">
-				<b>Create a new post.</b>
-			</div>
-			<form class="form-create"action="" method="POST">
-				<input type="text" placeholder="Name">
-				<br><br>
-				<textarea rows="10" cols="30" placeholder="Write your post here!"></textarea>
-				<br><br>
-				<input type="submit" class="greybutton">
-			</form>
-		</div>
+{% block content %}
+<div id="trending" class="push-left post">
+	trending
+	<br><br><br>
+	{% for post in posts %}
+	<div class="card post">	
+		<h2> {{post[0]}} </h2>
+		<p> 
+		  {{post[1][0:20]}}...
+		</p>
+	</div>
+	{% endfor %}
+</div>
+<div id="posts" class="push-right post">
+	posts
+	<br>
+	<br>
+	<br>
+	{% for post in posts %}
+	<div class="card post">
+		<h2> {{post[0]}} </h2>
+		<p> 
+		  {{post[1][0:75]}}...
+		</p>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}
 
-		<div id="main">
-			<div id="trending" class="card push-left post">
-				trending
-				<br><br><br>
-				{% for post in posts %}
-				<div class="card shadow-right post">	
-					<h2> {{post[0]}} </h2>
-					<p> 
-					  {{post[1][0:20]}}...
-					</p>
-				</div>
-				{% endfor %}
-			</div>
-			<div id="posts" class="card push-right post">
-				posts
-				<br>
-				<br>
-				<br>
-				{% for post in posts %}
-				<div class="card shadow-right post">
-					<h2> {{post[0]}} </h2>
-					<p> 
-					  {{post[1][0:75]}}...
-					</p>
-				</div>
-				{% endfor %}
-			</div>
 
-		</div>
-
-		<div id="footer">
-
-			<div id="form-toggle">
-					<span class="fa-stack fa-2x">
-						<i class="fa fa-circle fa-stack-2x"></i>
-						<i class="fa fa-times fa-stack-1x fa-inverse fa-spin"></i>
-					</span>
-			</div>
-
-		</div>
+{% block footer %}
+<div id="form-toggle">
+	<span class="fa-stack fa-2x">
+		<i class="fa fa-circle fa-stack-2x"></i>
+		<i class="fa fa-times fa-stack-1x fa-inverse fa-spin"></i>
+	</span>
+</div>
+</div>
 
 		<script>
 		var showing = false;
@@ -113,6 +69,4 @@
 			showing = !showing;
 		});
 		</script>
-
-	</body>
-</html>
+{% endblock %}

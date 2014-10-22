@@ -47,13 +47,27 @@ def trending(a):
     return [one,two,three]
 
 
+@app.route("/")
+def index():
+    posts = [("post1", "this is the first post HUrray fjawo;eij"), ("post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf")]
+    return render_template("index.html",location="Home",posts=posts)
 
+@app.route("/new-post", methods=['POST'])
+def newPost():
+    if request.method=='POST':
+        name = request.form['username']
+        content = request.form['post-content']
+        print name
+        print content
+        #INSERT CODE HERE TO ADD A NEW POST. -genji
+    
+    return redirect("http://localhost:5000")
+
+"""
 @app.route("/", methods = ['GET'])
 def index():
     conn = sqlite3.connect('softblog.db')
     c = conn.cursor()
-
-
     
     postdata = request.args.get("post");
     txtpostdata = request.args.get("txtpost");
@@ -70,21 +84,12 @@ def index():
         sdata += str(row)
 
     conn.commit()
-    conn.close()
-    """
-<<<<<<< HEAD
-    
+    conn.close()    
 
     posts = [("post1", "this is the first post HUrray fjawo;eij"), ("post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf")]
 
     return render_template("index.html", posts = posts );
-=======
-    print sdata
-    
-    return render_template("index.html", sinput = sdata);
->>>>>>> f6ac7638c0d5fd5a4795753959bf3bd77c3cc521
-    
-"""
+""" 
 
 if __name__ == "__main__":
     app.debug = True
