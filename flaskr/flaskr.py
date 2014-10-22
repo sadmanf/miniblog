@@ -92,7 +92,6 @@ def trending(a):
         elif count >= threeCount:
             three = post[0]
             threeCount = count
-    print [one,two,three]        
     return [one,two,three]
 
     
