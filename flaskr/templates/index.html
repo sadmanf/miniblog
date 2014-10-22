@@ -10,17 +10,149 @@
 	    <meta property="og:description" content="Blog project for SoftDev using Python Flask and SQLite">
 
 		<!--Resources-->
-		<!--<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">-->
-		<link rel="stylesheet" href="../static/main.css"
+		<link rel="stylesheet" href="../static/font-awesome-4.2.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../static/main.css">
+		<link rel="stylesheet" href="../static/button-style.css">
 		<link rel="icon" type="image/ico" href="../static/favicon.ico">
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 		<script type="text/javascript" src="../static/jquery-1.11.1.min.js"></script>
 
 	</head>
 
 	<body>
-		SoftBlog : Home
 
+		<div class="header">
+			<h1 class="heading">
+				SoftBlog : Home
+			</h1>
+			<div class="links">
+				<a style="color: white" class="greylink" href="#">
+					ABOUT
+				</a>
+			</div>
+		</div>
+
+
+		<div id="create-new" class="card">
+			<div class="create-new-heading">
+				<b>Create a new post.</b>
+			</div>
+			<form class="form-create"action="" method="POST">
+				<input type="text" placeholder="Name">
+				<br><br>
+				<textarea rows="10" cols="30" placeholder="Write your post here!"></textarea>
+				<br><br>
+				<input type="submit" class="greybutton">
+			</form>
+		</div>
+
+		<div id="main">
+			<div id="trending" class="card push-left post">
+				trending
+				<br><br><br>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr durr post first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr durr post first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr durr post first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr durr post first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr durr post first line</p>
+				</div>
+			</div>
+			<div id="posts" class="card push-right post">
+				posts
+				<br>
+				<br>
+				<br>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+				<div class="card shadow-right post">
+					<h2>card heading</h2>
+					<p>hurr dur first line</p>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="footer">
+
+			<div id="form-toggle">
+					<span class="fa-stack fa-2x">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-times fa-stack-1x fa-inverse fa-spin"></i>
+					</span>
+			</div>
+
+		</div>
+
+		<script>
+		var showing = false;
+		$("#form-toggle").click(function(showing){
+			if(document.getElementById("create-new").style.bottom=="0%"){
+				console.log("here");
+				$("#create-new").animate({
+					"bottom": "-60%"
+				})
+				$("#form-toggle").animate({
+					bottom: "5%",
+					right: "5%"
+				})
+			} else {
+				console.log("there")
+				$("#create-new").animate({
+					bottom: "0%"
+				})
+				$("#form-toggle").animate({
+					right: "0%",
+					bottom: "52%"
+				})
+			}
+			showing = !showing;
+		});
+		</script>
 
 	</body>
 </html>
