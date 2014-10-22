@@ -6,6 +6,8 @@ import time
 
 app = Flask(__name__)
 
+posts = [("post1", "this is the first post HUrray fjawo;eij"), ("post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf")]
+
 #Must Run Commit After Function is called
 def addPost (postdata, txtpostdata, time, pID, curs):
 
@@ -49,7 +51,6 @@ def trending(a):
 
 @app.route("/")
 def index():
-    posts = [("post1", "this is the first post HUrray fjawo;eij"), ("post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf")]
     return render_template("index.html",location="Home",posts=posts)
 
 @app.route("/new-post", methods=['POST'])
@@ -62,6 +63,11 @@ def newPost():
         #INSERT CODE HERE TO ADD A NEW POST. -genji
     
     return redirect("http://localhost:5000")
+
+@app.route("/<post_id>")
+def post(post_id=None):
+    print post_id
+    return render_template("post.html",location=posts[int(post_id)][0])
 
 """
 @app.route("/", methods = ['GET'])
@@ -90,6 +96,7 @@ def index():
 
     return render_template("index.html", posts = posts );
 """ 
+
 
 if __name__ == "__main__":
     app.debug = True
