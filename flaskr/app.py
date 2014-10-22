@@ -7,10 +7,13 @@ import time
 app = Flask(__name__)
 
 #Must Run Commit After Function is called
-def addPost (title, post, time, pID, curs):
+def addPost (postdata, txtpostdata, time, pID, curs):
 
-    sinsertion = '''INSERT INTO posts (title, post, time, pId) 
-    values ("''' + title + '''", "''' + post+ '''", ''' + str(time) + ''', ''' + str(pID) + '''); '''
+#    sinsertion = "INSERT INTO posts (title, post, time, pId) values ('" + title + "','" + post+ "'," + str(time) + "," + str(pID) + ");"
+
+    sinsertion = "INSERT INTO posts (title, post, time, pId) values ('" + str(postdata) +  "', '" + txtpostdata + "', " + str(time) + ", " + str(pID) + ");"
+    
+
 
     curs.execute(sinsertion)
 
@@ -52,12 +55,14 @@ def index():
 
 
     
-    #sinput = request.args.get("blogpost");
+    postdata = request.args.get("post");
+    txtpostdata = request.args.get("txtpost");
+
     c.execute('''CREATE TABLE IF NOT EXISTS posts(title text, post text, time integer, pId integer);''')
     c.execute('''CREATE TABLE IF NOT EXISTS comments
     (comment text, time real, pId integer, cId integer);''')
     
-    addPost("post", "title", 18.781, 199, c)
+    addPost(postdata, txtpostdata, 18.781, 199, c)
 
     sdata = ''
 
