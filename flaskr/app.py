@@ -32,8 +32,10 @@ def index():
     conn.commit()
     conn.close()
     
-    
-    return render_template("index.html", sinput = sdata);
+
+    posts = [("post1", "this is the first post HUrray fjawo;eij"), ("post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf")]
+
+    return render_template("index.html", posts = posts );
     
 
 
