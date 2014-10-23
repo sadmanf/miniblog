@@ -2,7 +2,33 @@
 
 
 {% block content %}
+<div id="post-page" class="push-right post">
+	<div class="post">
+		<h1>
+			<!-- Post title -->
+			{{ post[1] }}
+		</h1>
+		<br>
+		<p>{{ post[2] }}</p>
+		<br><br><br>
+	</div>
 
+	<div id="comments">
+		<div class="comment card post">
+			<form action="localhost:5000/{{ post[0] }}/new-comment" method="POST">
+				<input type="text" name="username" placeholder="Username">
+				<input name="comment" placeholder="Add a comment!"></input>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		{% for comment in post[3] %}
+			<div class="comment card post">
+				<h3>User:{{ comment[0] }}</h3>
+				<p>{{ comment[1] }}
+			</div>
+		{% endfor %}
+	</div>
+</div>
 
 
 {% endblock %}
@@ -10,6 +36,6 @@
 
 
 {% block footer %}
-
+	
 
 {% endblock %}

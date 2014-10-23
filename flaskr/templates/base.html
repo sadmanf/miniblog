@@ -27,9 +27,9 @@
 	<body>
 
 		<div class="header">
-			<h1 class="heading">
+			<h2 class="heading">
 				SoftBlog : {{ location }}
-			</h1>
+			</h2>
 			<div class="links">
 				<a style="color: white" class="greylink" href="#">
 					ABOUT
@@ -44,11 +44,27 @@
 		<div id="trending" class="push-left post">
 			trending
 			<br><br><br>
-			{% for post in trending %}
+			{% for post in posts %}
+
+
+
+
+
+
+			<!-- CHANGE POSTS TO TRENDING -->
+
+
+
+
+
+
+
 			<div class="card post">	
-				<h2> {{post[0]}} </h2>
+				<a href="http://localhost:5000/{{post[0]}}">
+				<h2> {{post[1]}} </h2>
+				</a>
 				<p> 
-				  {{post[1][0:20]}}...
+				  {{post[2][0:20]}}...
 				</p>
 			</div>
 			{% endfor %}
