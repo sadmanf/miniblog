@@ -29,6 +29,7 @@ def getPosts (curs):
 
 def getComms (curs):
   result = curs.execute('SELECT * FROM comments')
+  print result
   for row in result:
     print row
   return result
