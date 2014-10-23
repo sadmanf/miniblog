@@ -62,7 +62,9 @@ def index():
     c.execute('''CREATE TABLE IF NOT EXISTS posts(title text UNIQUE, post text, time integer);''')
     c.execute('''CREATE TABLE IF NOT EXISTS comments
     (comment text, time real, pId integer);''')
-    return render_template("index.html",location="Home",posts=posts)
+    #Insert code here to fetch all of the posts and set posts to that. - genji
+    #Insert code here to fetch the trending posts now. -genji
+    return render_template("index.html",location="Home",posts=posts,trending=trending)
 
 @app.route("/new-post", methods=['POST'])
 def newPost():
@@ -85,7 +87,7 @@ def newPost():
 
 @app.route("/<post_id>")
 def post(post_id=None):
-    print post_id
+    print "Post ID: " + post_id
     return render_template("post.html",location=posts[int(post_id)][0])
 
 """
