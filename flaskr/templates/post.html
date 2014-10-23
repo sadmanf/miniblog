@@ -15,7 +15,7 @@
 
 	<div id="comments">
 		<div class="comment card post">
-			<form action="localhost:5000/{{ post[0] }}/new-comment" method="POST">
+			<form action="http://localhost:5000/{{ postID }}/new-comment" method="POST">
 				<input type="text" name="username" placeholder="Username">
 				<input name="comment" placeholder="Add a comment!"></input>
 				<input type="submit" value="Submit">
@@ -36,6 +36,6 @@
 
 
 {% block footer %}
-	
+
 
 {% endblock %}

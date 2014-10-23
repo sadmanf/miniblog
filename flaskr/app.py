@@ -16,8 +16,18 @@ def addPost (postdata, txtpostdata, time, curs):
     sinsertion = "INSERT INTO posts (title, post, time) values (" + "'" + str(postdata) +  "', '" + txtpostdata + "', " + str(time) + ");"
     curs.execute(sinsertion)
 
+def addComment (postdata, username, time, pID, curs):
+    sinsertion = "INSERT INTO comments (title, user, time, pId) values (" + "'" + postdata +  "', '" + username + "', " + str(time) + ", " + str(pID) + ");"
+    curs.execute(sinsertion)
+
 def getPosts (curs):
   result = curs.execute('SELECT * FROM posts')
+  for row in result:
+    print row
+  return result
+
+def getComms (curs):
+  result = curs.execute('SELECT * FROM comments')
   for row in result:
     print row
   return result
@@ -56,18 +66,18 @@ def trending(a):
 def index():
     conn = sqlite3.connect('softblog.db')
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS posts(title text UNIQUE, post text, time integer);''')
+    c.execute('''CREATE TABLE IF NOT EXISTS posts(title text UNIQUE, post text, time real);''')
     c.execute('''CREATE TABLE IF NOT EXISTS comments
-    (comment text, time real, pId integer);''')
+    (comment text, username text,time real, pId text);''')
     #Insert code here to fetch all of the posts and set posts to that. - genji
-    
-    
+
+
     c.execute("select * from posts")
     #print [str(x[0]) for x in c.fetchall()]
     titles = []
     posts = []
     for x in c.fetchall():
-        posts.append(x) 
+        posts.append(x)
     posts = posts[::-1]
     print titles
     #Insert code here to fetch the trending posts now. -genji
@@ -87,7 +97,7 @@ def newPost():
         #INSERT CODE HERE TO ADD A NEW POST. -genji
 
         getPosts(c)
-            
+
         conn.commit()
         conn.close()
 
@@ -96,23 +106,26 @@ def newPost():
 @app.route("/<post_id>")
 def post(post_id=None):
     print "Post ID: " + post_id
-    return render_template("post.html",location="Post Title Here",post=posts[0],posts=posts)
+    return render_template("post.html",location="Post Title Here",post=posts[0],posts=posts,postID=post_id)
 
-@app.route("/<post_id>/new-comment")
-def add_Comment(post_id=None):
+@app.route("/<post_id>/new-comment", methods=['POST'])
+def new_Comment(post_id=None):
     #INSERT CODE HERE TO ADD A NEW COMMENT TO THE POST -genji
     if request.method=='POST':
-        username = request.form('username')
-        content = request.form('comment')
-    return redirect("http://localhost:5000/"+post_id)
+        username = request.form['username']
+        comment = request.form['comment']
+        print username
+        print comment
+        conn = sqlite3.connect('softblog.db')
+        c = conn.cursor()
 
+        addComment(comment, username, time.time(), post_id, c)
 
-@app.route("/<post_id>/new-comment")
-def addComment(post_id=None):
-    #INSERT CODE HERE TO ADD A NEW COMMENT TO THE POST -genji
-    if request.method=='POST':
-        username = request.form('username')
-        content = request.form('comment')
+        getComms(c)
+
+        conn.commit()
+        conn.close()
+
     return redirect("http://localhost:5000/"+post_id)
 
 
