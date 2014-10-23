@@ -107,8 +107,25 @@ def newPost():
 
 @app.route("/<post_id>")
 def post(post_id=None):
+    conn = sqlite3.connect('softblog.db')
+    c = conn.cursor()
+
+    comm = "SELECT * FROM posts where title == '" + str(post_id) + "'"
+    print comm
+    post = c.execute(comm).fetchall()[0]
+    conn.commit()
+    print post[0]
+    print "##################################################"
+
+    selCom = "SELECT * FROM comments where pId=='" + str(post_id) + "'"
+
+    commts = c.execute(selCom)
+    print commts
+    
+    conn.commit()
+    
     print "Post ID: " + post_id
-    return render_template("post.html",location="Post Title Here",post=posts[0],posts=posts,postID=post_id)
+    return render_template("post.html",location="Post Title Here",post=post,posts=posts,postID=post_id, comments = commts)
 
 @app.route("/<post_id>/new-comment", methods=['POST'])
 def new_Comment(post_id=None):

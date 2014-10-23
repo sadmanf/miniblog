@@ -6,10 +6,10 @@
 	<div class="post">
 		<h1>
 			<!-- Post title -->
-			{{ post[1] }}
+			{{ post[0] }}
 		</h1>
 		<br>
-		<p>{{ post[2] }}</p>
+		<p>{{ post[1] }}</p>
 		<br><br><br>
 	</div>
 
@@ -21,10 +21,10 @@
 				<input type="submit" value="Submit">
 			</form>
 		</div>
-		{% for comment in post[3] %}
+		{% for comment in comments %}
 			<div class="comment card post">
-				<h3>User:{{ comment[0] }}</h3>
-				<p>{{ comment[1] }}
+				<h3>User:{{ comment[1] }}</h3>
+				<p>{{ comment[0] }}
 			</div>
 		{% endfor %}
 	</div>
