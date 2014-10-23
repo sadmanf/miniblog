@@ -17,7 +17,8 @@ def addPost (postdata, txtpostdata, time, curs):
     curs.execute(sinsertion)
 
 def addComment (postdata, username, time, pID, curs):
-    sinsertion = "INSERT INTO comments (title, user, time, pId) values (" + "'" + postdata +  "', '" + username + "', " + str(time) + ", " + str(pID) + ");"
+    sinsertion = "INSERT INTO comments (comment, username, time, pId) values (" + "'" + postdata +  "', '" + username + "', " + str(time) + ", '" + str(pID) + "');"
+    print sinsertion
     curs.execute(sinsertion)
 
 def getPosts (curs):
