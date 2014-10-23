@@ -6,7 +6,11 @@ import time
 
 app = Flask(__name__)
 
+<<<<<<< HEAD
 #posts = [("post1", "this is the first post HUrray fjawo;eij"), ("post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf")]
+=======
+posts = [("qwerty","post1", "this is the first post HUrray fjawo;eij", [("Genji Noguchi","aowiejfoawiejfoiwaefoiawejfo"),("Swagmaster", "I am made of swag.")]), ("1a2bc3f","post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf",[("Super commenter","Comment 1"),("Even bigger commenter than ^","Massive comment")])]
+>>>>>>> 86ca891b2a3cfd620fc9a60cd4815dff04a42891
 
 #Must Run Commit After Function is called
 def addPost (postdata, txtpostdata, time, curs):
@@ -107,7 +111,16 @@ def newPost():
 @app.route("/<post_id>")
 def post(post_id=None):
     print "Post ID: " + post_id
-    return render_template("post.html",location=posts[int(post_id)][0])
+    return render_template("post.html",location="Post Title Here",post=posts[0],posts=posts)
+
+@app.route("/<post_id>/new-comment")
+def addComment(post_id=None):
+    #INSERT CODE HERE TO ADD A NEW COMMENT TO THE POST -genji
+    if request.method=='POST':
+        username = request.form('username')
+        content = request.form('comment')
+    return redirect("http://localhost:5000/"+post_id)
+
 
 @app.route("/<post_id>/new-comment")
 def addComment(post_id=None):
