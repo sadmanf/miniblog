@@ -9,15 +9,21 @@ app = Flask(__name__)
 posts = [("post1", "this is the first post HUrray fjawo;eij"), ("post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf")]
 
 #Must Run Commit After Function is called
-def addPost (postdata, txtpostdata, time, pID, curs):
+def addPost (postdata, txtpostdata, time, curs):
 
 #    sinsertion = "INSERT INTO posts (title, post, time, pId) values ('" + title + "','" + post+ "'," + str(time) + "," + str(pID) + ");"
 
-    sinsertion = "INSERT INTO posts (title, post, time, pId) values ('" + str(postdata) +  "', '" + txtpostdata + "', " + str(time) + ", " + str(pID) + ");"
-    
+    sinsertion = "INSERT INTO posts (title, post, time) values (" + "'" + str(postdata) +  "', '" + txtpostdata + "', " + str(time) + ");"
+
 
 
     curs.execute(sinsertion)
+
+def getPosts (curs):
+  result = curs.execute('SELECT * FROM posts')
+  for row in result:
+    print row
+  return result
 
 def trending(a):
     one = 0
@@ -35,7 +41,7 @@ def trending(a):
             three = two
             threeCount = twoCount
             two = one
-            twoCount = oneCount 
+            twoCount = oneCount
             one = post[0]
             oneCount = count
         elif count >= twoCount:
@@ -51,6 +57,11 @@ def trending(a):
 
 @app.route("/")
 def index():
+    conn = sqlite3.connect('softblog.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS posts(title text UNIQUE, post text, time integer);''')
+    c.execute('''CREATE TABLE IF NOT EXISTS comments
+    (comment text, time real, pId integer);''')
     return render_template("index.html",location="Home",posts=posts)
 
 @app.route("/new-post", methods=['POST'])
@@ -60,8 +71,16 @@ def newPost():
         content = request.form['post-content']
         print name
         print content
+        conn = sqlite3.connect('softblog.db')
+        c = conn.cursor()
+
+        addPost(name, content, time.time(), c)
         #INSERT CODE HERE TO ADD A NEW POST. -genji
-    
+        getPosts(c)
+        conn.commit()
+
+        conn.close()
+
     return redirect("http://localhost:5000")
 
 @app.route("/<post_id>")
@@ -74,14 +93,14 @@ def post(post_id=None):
 def index():
     conn = sqlite3.connect('softblog.db')
     c = conn.cursor()
-    
+
     postdata = request.args.get("post");
     txtpostdata = request.args.get("txtpost");
 
     c.execute('''CREATE TABLE IF NOT EXISTS posts(title text, post text, time integer, pId integer);''')
     c.execute('''CREATE TABLE IF NOT EXISTS comments
     (comment text, time real, pId integer, cId integer);''')
-    
+
     addPost(postdata, txtpostdata, 18.781, 199, c)
 
     sdata = ''
@@ -90,12 +109,12 @@ def index():
         sdata += str(row)
 
     conn.commit()
-    conn.close()    
+    conn.close()
 
     posts = [("post1", "this is the first post HUrray fjawo;eij"), ("post2", "a;sodifjawo;eifja;woeifjaw;oeifjas;ldkfjha;skdjfhalskdjfhalskdjfhaskldjf")]
 
     return render_template("index.html", posts = posts );
-""" 
+"""
 
 
 if __name__ == "__main__":
