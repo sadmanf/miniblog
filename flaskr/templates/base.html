@@ -44,11 +44,11 @@
 		<div id="trending" class="push-left post">
 			trending
 			<br><br><br>
-			{% for post in trending %}
+			{% for posts in trending %}
 			<div class="card post">	
-				<h2> {{post[0]}} </h2>
+			  <h2> {{posts[0]}} </h2>
 				<p> 
-				  {{post[1][0:20]}}...
+				  {{posts[1][0:20]}}...
 				</p>
 			</div>
 			{% endfor %}
